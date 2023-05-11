@@ -5,19 +5,19 @@ const { Schema } = mongoose
 const bookSchema = new Schema({
     title: {
         type: String,
-        required: true,
+        default: "Book Title"
     },
     description: {
         type: String,
-        required: true,
+        default: "This is a book"
     },
     year: {
         type: Number,
-        required: true,
+        default: 2001
     },
     quantity: {
         type: Number,
-        required: true,
+        default: 10
     },
     imageURL: {
         type: String,

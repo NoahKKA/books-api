@@ -29,13 +29,34 @@ bookRouter.get('/:id', (req, res) => {
         })
 })
 
+// EDIT
+bookRouter.get('/:id/edit', (req, res) => {
+    let id = req.params.id
+    console.log(id)
+    Books.findById(id)
+        .then(editBook => {
+            console.log(editBook)
+            res.render('edit', {books: editBook})
+        })
+  })
+
+//CREATE
+bookRouter.post('/', (req, res) => {
+    Books.create(req.body)
+    res.redirect('/books')
+})
+
+
 //EDIT METHOD
 bookRouter.put('/:id', (req, res) => {
     let id = req.params.id
     Books.findByIdAndUpdate(id, req.body, {new: true})
         .then(updatedBook => {
             console.log(updatedBook)
-            res.redirect('/books')
+            res.redirect(`/books/${id}`)
+        })
+        .catch(err => {
+            console.log("err", err)
         })
 })
 
@@ -46,6 +67,9 @@ bookRouter.delete('/:id', (req, res) => {
         .then(deletedBook => { 
             res.status(303).redirect('/books')
          })
+         .catch(err => {
+            console.log("err", err)
+        })
 })
 
 // EXPORT
